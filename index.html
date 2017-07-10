@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="renderer" content="webkit" />
+
+		<script type="text/javascript" src="js/cn.tee3.avd-2.5.0.0.min.js?20160415021957"></script>
+		<title>录制Demo</title>
+		<style>
+		    pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+		    .string { color: green; }
+		    .number { color: darkorange; }
+		    .boolean { color: blue; }
+		    .null { color: magenta; }
+		    .key { color: red; }
+		    
+		    .inputDivSetting {
+		    	font-size: 16px;
+		    	padding-left: 20px;
+		    	display: none;
+		    }
+		</style>
+	</head>
+
+	<body>			
+		<div id="outgoingDiv" style="width: 800px;border: solid 1px black;height: 800px;margin: 0px auto;">
+			<div id="buttonDiv" style="width: auto;border-bottom: solid 1px black;height: 100px;padding: 0 0 0 20px;">
+				<h2>录制Demo</h2>
+				<input type="button" value="加会页面跳转" style="margin: -50px 0 0 680px;position: absolute;" onclick="window.open('../join_room_demo/index.html');" />
+				<div>
+					<input type="button" value="创建录制" onclick="showCreateRecord();" />&nbsp;&nbsp;
+					<input type="button" value="停止录制" onclick="showRecordId('stop');" />&nbsp;&nbsp;
+					<input type="button" value="获取录制" onclick="showRecordId('get');" />&nbsp;&nbsp;
+					<input type="button" value="删除录制" onclick="showRecordId('delete');" />&nbsp;&nbsp;
+					<input type="button" value="筛选录制" onclick="showFindRecords();" />
+					<br>
+					<br>
+				</div>
+			</div>
+			
+			<div id="operationDiv" style="width: auto;border-bottom: solid 1px black;height: 430px;">
+				<div id="inputDiv" style="width: 39%;height: 100%;float: left;border-right: solid 1px black;padding: 0 0 0 20px;">
+					<h3 id="inputHead" style="margin-top: 20px;margin-bottom: 10px;">接口输入参数</h3>
+					<div id="recordIdDiv" class="inputDivSetting">						
+						录制ID：&nbsp;&nbsp;<input type="text" style="width: 240px;" placeholder="录制创建成功以后自动填写" id="recordId" name="recordId" />
+						<br>
+					</div>
+					<div id="createRecordParaDiv" class="inputDivSetting">						
+						房间Id:&nbsp;&nbsp;
+						<input type="text" placeholder="请输入房间Id" value="" id="roomId" name="roomId"/>
+						<br>
+						用户Id:&nbsp;&nbsp;
+						<input type="text" placeholder="请输入用户Id" value="" id="userId" name="userId" />
+						<br>
+						<br>
+						录制名称：&nbsp;&nbsp;<input type="text" placeholder="请输入录制名称" value="test" id="recordName" name="recordName" />
+						<br>
+						录制标记：&nbsp;&nbsp;<input type="text" placeholder="请输入录制标记" value="" id="recordTag" name="recordTag" />
+						<br>
+						音频类型：&nbsp;
+						<select id="audioType" name="audioType">
+							<option value="0">无音频</option>
+							<option value="1">单用户音频</option>
+							<option value="2" selected="selected">所有音频混音</option>
+						</select>
+						<br>
+						视频类型：&nbsp;
+						<select id="videoType" name="videoType">
+							<option value="0">无视频</option>
+							<option value="1" selected="selected">视频主流</option>
+							<option value="2">视频辅流1</option>
+							<option value="3">视频辅流2</option>
+						</select>
+						<br>
+						文件类型：&nbsp;
+						<select id="fileType" name="fileType">
+							<option value="0" selected="selected">webm</option>
+							<option value="1" >mp4</option>
+						</select>
+					</div>
+					<div id="findRecordsParaDiv" class="inputDivSetting">
+						data begin：&nbsp;&nbsp;<input type="number" min=0 value="" id="begin" name="begin" />					
+						<br>
+						data count：&nbsp;&nbsp;<input type="number" min=0 value="" id="count" name="count" />					
+						<br>
+						开始日期：&nbsp;&nbsp;<input type="text" placeholder="格式yyyy-mm-dd" value="" id="fromTime" name="fromTime" />				
+						<br>
+						结束日期：&nbsp;&nbsp;<input type="text" placeholder="格式yyyy-mm-dd" value="" id="endTime" name="endTime" />				
+						<br>
+						筛选房间ID：&nbsp;&nbsp;<input type="text" value="" id="filterRoomId" name="filterRoomId" />						
+						<br>
+						筛选用户ID：&nbsp;&nbsp;<input type="text" value="" id="filterUserId" name="filterUserId" />					
+						<br>
+					</div>
+					<div id="sureBtnDiv" style="text-align: center;margin-top: 10px;display: none;">
+						<button onclick="queryEachRestApi();">确认</button>
+					</div>
+				</div>
+				<div id="resultDiv" style="width: 57%;height: 100%;float: left;padding: 0 0 0 10px;">
+					<h3 id="outputHead">JSON格式输出</h3>
+					<div style="width:430px;height:330px;overflow: auto;">
+						<pre id="resultShow">
+						</pre>
+					</div>
+				</div>
+			</div>
+			
+			<div id="logDiv" style="width: auto;height: 170px;padding: 0 0 0 20px;">
+				<h3>日志结果展示：</h3>				
+				<div id="jp-container" style="width:750px;height:150px;overflow: auto;">
+					<div id="logShow">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/recorder.js"></script>
+	</body>
+
+</html>
